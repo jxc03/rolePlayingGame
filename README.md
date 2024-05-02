@@ -1092,37 +1092,671 @@ goldText.innerText = gold;
 ```
 
 ## **Step 107** 
+
+## **New section - updated steps!**
+***Updated steps*** to the role playing game project from freeCodeCamp
+
+## **Step 103** 
 The next step is to create a variable called `currentWeapon`.<br>
-Notice that you already have a `currentWeapon` variable elsewhere in your code. Since this new currentWeapon variable will be inside an if statement, it will be scoped only to that block of code.
-
-Scope is the term used to describe where a variable can be accessed. If a variable is declared inside a block of code, it is only accessible to the code inside that block. This is called block scope.
-
-let num = 1;
-if (num === 1) {
-  let num = 2; // this num is scoped to the if statement
-  console.log(num); // expected output: 2
-}
-console.log(num); // expected output: 1 (the global variable)
-Use the let keyword to create a variable named currentWeapon. Don't assign it a value yet.
+Notice that you already have a `currentWeapon` variable elsewhere in your code. Since this new `currentWeapon` variable will be inside an `if` statement, it will be scoped only to that block of code.<br>
+Scope is the term used to describe where a variable can be accessed. If a variable is declared inside a block of code, it is only accessible to the code inside that block. This is called block scope.<br>
+`let num = 1;`
+`if (num === 1) {`
+  `let num = 2; // this num is scoped to the if statement`
+  `console.log(num); // expected output: 2`
+`}`
+`console.log(num); // expected output: 1(the global variable)`<br
+Use the `let` keyword to create a variable named `currentWeapon`. Don't assign it a value yet.
 
 ```js
+let currentWeapon 
+```
 
+## **Step 104** 
+In the previous project, you learned how to work with the `shift()` method to remove the first element from an array like this:<br>
+`const myArray = ["first", "second", "third"];`
+`const firstElement = myArray.shift();`
+`// myArray is now ["second", "third"]`<br>
+Use the `shift()` method to take the first element from the `inventory` array and assign it to your `currentWeapon` variable.
+
+```js
+currentWeapon = inventory.shift();
+```
+
+## **Step 105** 
+After your `currentWeapon`, use the concatenation operator to set `text.innerText` to the string `"You sold a "`, then `currentWeapon`, then the string `"`.".
+
+```js
+text.innerText = "You sold a " + currentWeapon + ".";
+```
+
+## **Step 106** 
+Now use the `+=` operator to add the string `" In your inventory you have: "` and the contents of `inventory` to the `text.innerText`. Make sure to include the space at the beginning and end of the `" In your inventory you have: "` string.
+
+```js
+text.innerText += " In your inventory you have: " + inventory;
+```
+
+## **Step 107** 
+Use an `else` statement to run when the `inventory` length is not more than one. Set the `text.innerText` to say `"Don't sell your only weapon!"`.
+
+```js
+else {
+  text.innerText = "Don't sell your only weapon!";
+}
 ```
 
 ## **Step 108** 
+Now you can start the code to fight monsters. To keep your code organized, your `fightDragon` function has been moved for you to be near the other `fight` functions.<br>
+Below your `weapons` array, define a `monsters` variable and assign it an array. Set that array to have three objects, each with a `name`, `level`, and `health` properties. The first object's values should be `"slime"`, `2`, and `15`, in order. The second should be `"fanged beast"`, `8`, and `60`. The third should be `"dragon"`, `20`, and `300`.
 
 ```js
-
+const monsters = [
+  {name: "slime", level: 2, health: 15},
+  {name: "fanged beast", level: 8, health: 60},
+  {name: "dragon", level: 20, health: 300}
+]
 ```
 
 ## **Step 109** 
+Fighting each type of monster will use similar logic. Create an empty function called `goFight` to manage this logic.
 
 ```js
-
+function goFight() {}
 ```
 
 ## **Step 110** 
+In your `fightSlime` function, set `fighting` equal to `0` - the index of `slime` in the `monsters` array. Remember that you already declared `fighting` earlier in your code, so you do not need `let` or `const` here.<br>
+On the next line, call the `goFight` function.
 
 ```js
+fighting = 0;
+goFight();
+```
 
+## **Step 111** 
+Following the same pattern as the `fightSlime` function, use that code in the `fightBeast` and `fightDragon` functions. Remember that `beast` is at index `1` and `dragon` is at index `2`. Also, remove the `console.log` call from your `fightDragon` function.
+
+```js
+function fightBeast() {
+  fighting = 1;
+  goFight();
+}
+
+function fightDragon() {
+  fighting = 2;
+  goFight();
+}
+```
+
+## **Step 112** 
+At the end of your code, create two empty functions named `attack` and `dodge`.
+
+```js
+function attack() {}
+function dodge() {}
+```
+
+## **Step 113** 
+Add a new object to the end of the `locations` array, following the same properties as the rest of the objects. Set `name` to `"fight"`, `"button text"` to an array with `"Attack"`, `"Dodge"`, and `"Run"`, `"button functions"` to an array with `attack`, `dodge`, and `goTown`, and `text` to `"You are fighting a monster."`.
+
+```js
+{
+  name: "fight",
+  "button text": ["Attack", "Dodge", "Run"],
+  "button functions": [attack, dodge, goTown],
+  text: "You are fighting a monster."
+}
+```
+
+## **Step 114** 
+In the `goFight` function, call your `update` function with the fourth object in `locations` as an argument.
+
+```js
+update(locations[3]);
+```
+
+## **Step 115** 
+Below your `update` call, set the `monsterHealth` to be the health of the current monster. You can get this value by accessing the `health` property of `monsters[fighting]` with dot notation.
+
+```js
+monsterHealth = monsters[fighting].health;
+```
+
+## **Step 116** 
+By default, the HTML element that shows the monster's stats has been hidden with CSS. When the player clicks the "Fight dragon" button, the monster's stats should be displayed. You can accomplish this by using the <i>style</i> and <i>display</i> properties on the `monsterStats` element.<br>
+The `style` property is used to access the inline style of an element and the `display` property is used to set the visibility of an element.<br> an example of how to update the display for a paragraph element:<br>
+`const paragraph = document.querySelector('p');`
+`paragraph.style.display = 'block';`<br>
+Display the `monsterStats` element by updating the `display` property of the `style` property to `block`.
+
+```js
+monsterStats.style.display = 'block';
+```
+
+
+## **Step 117** 
+Now, you will need to update the text for the current monster's name and health.<br>
+Start by assigning `monsters[fighting].name` to the `innerText` property of `monsterName`. Then, assign `monsterHealth` to the `innerText `property of `monsterHealthText`.
+
+```js
+monsterName.innerText = monsters[fighting].name;
+monsterHealthText.innerText = monsterHealth;
+```
+
+## **Step 118** 
+Now you can build the `attack` function. First, update the `text` message to say `"The <monster name> attacks."`, replacing `<monster name>` with the name of the monster. Remember you can use the concatenation operator for this.
+
+```js
+text.innerText = "The " + monsters[fighting].name + " attacks.";
+```
+
+## **Step 119** 
+On a new line, use the addition assignment operator(`+=`), to add the string `" You attack it with your <weapon>."` to the `text` value, replacing `<weapon>` with the player's current weapon. Additionally, remember that this line of text starts with a space so it will properly display.
+
+```js
+text.innerText += " You attack it with your " + weapons[currentWeapon].name + ".";
+```
+
+## **Step 120** 
+Next, set `health` to equal `health` minus the monster's level. Remember you can get this from the `monsters[fighting].level` property.
+
+```js
+health -= monsters[fighting].level;
+```
+
+## **Step 121** 
+Set `monsterHealth` to `monsterHealth` minus the power of the player's current weapon.<br>
+Remember that you can access the power of the player's current weapon using `weapons[currentWeapon].power`.
+
+```js
+monsterHealth -= weapons[currentWeapon].power;
+```
+
+## **Step 122** 
+The `Math` object in JavaScript contains static properties and methods for mathematical constants and functions. One of those is `Math.random()`, which generates a random number from `0` (inclusive) to `1` (exclusive). Another is `Math.floor()`, which rounds a given number down to the nearest integer.<br>
+Using these, you can generate a random number within a range. For example, this generates a random number between `1` and `5`: `Math.floor(Math.random() * 5) + 1`;.<br>
+Following this pattern, use the addition operator (`+`) to add a random number between `1` and the value of `xp` to your `monsterHealth -= weapons[currentWeapon].power`.
+
+```js
+monsterHealth -= weapons[currentWeapon].power + Math.floor(Math.random() * xp) + 1;
+```
+
+## **Step 123** 
+Update `healthText.innerText` and `monsterHealthText.innerText` to equal `health` and `monsterHealth`.
+
+```js
+healthText.innerText = health;
+monsterHealthText.innerText = monsterHealth;
+```
+
+## **Step 124** 
+Add an `if` statement to check if `health` is less than or equal to `0`. If it is, call the `lose` function.
+
+```js
+if (health <= 0){
+  lose();
+}
+```
+
+## **Step 125** 
+You can make an `else` statement conditional by using `else if`. Here's an example:<br>
+`if (num > 10) {`<br>
+`} else if (num < 5) {`<br>
+`}`<br>
+At the end of your `if` statement, add an `else if` statement to check if `monsterHealth` is less than or equal to `0`. In your `else if`, call the `defeatMonster` function.
+
+```js
+else if (monsterHealth <= 0 ){
+  defeatMonster();
+}
+```
+
+## **Step 126** 
+At the end of your code, create the `defeatMonster` and `lose` functions. Leave them empty for now.
+
+```js
+function defeatMonster() {}
+function lose() {}
+```
+
+## **Step 127** 
+Inside the `dodge` function, set `text.innerText` equal to the string `"You dodge the attack from the <monster>"`. Replace `<monster>` with the name of the monster, using the `name` property.
+
+```js
+text.innerText = "You dodge the attack from the " + monsters[fighting].name;
+```
+
+## **Step 128** 
+In your `defeatMonster` function, set `gold` equal to `gold` plus the monster's level times `6.7`. Remember you can get the monster's level by using `monsters[fighting].level`.<br>
+Here is an example of setting `num` to `num` plus `5` * `8`: `num += 5 * 8`. Use `Math.floor()` to round the result down.
+
+```js
+gold += Math.floor(monsters[fighting].level * 6.7);
+```
+
+## **Step 129** 
+Set `xp` to `xp` plus the monster's level.
+
+```js
+xp += monsters[fighting].level;
+```
+
+## **Step 130** 
+Now update `goldText` and `xpText` to display the updated values.
+
+```js
+goldText.innerText = gold;
+xpText.innerText =  xp;
+```
+
+## **Step 131** 
+Finish the `defeatMonster` function by calling the `update` function with `locations[4]` as the argument.
+
+```js
+update(locations[4]);
+```
+
+## **Step 132** 
+Your `locations` array doesn't have a fifth element, so `locations[4]` doesn't work.<br>
+Add a new object at the end of the `locations` array, following the same structure as the other objects. Set `name` to `"kill monster"`, set `"button text"` to an array with three `"Go to town square"` strings, set `"button functions"` to an array with three `goTown` variables, and set `text` to `"The monster screams Arg! as it dies. You gain experience points and find gold."`.
+
+```js
+{
+  name: "kill monster",
+  "button text": ["Go to town square", "Go to town square", "Go to town square"],
+  "button functions": [goTown, goTown, goTown],
+  text: "The monster screams Arg! as it dies. You gain experience points and find gold."
+}
+```
+
+## **Step 133** 
+The word `"Arg!"` should have quotes around it. Besides escaping quotes, there is another way you can include quotation marks inside a string.<br>
+Change the double quotes around the string `"The monster screams Arg! as it dies. You gain experience points and find gold."` to single quotes `'`, then add double quotes around `"Arg!"`.
+
+```js
+text: 'The monster screams "Arg!" as it dies. You gain experience points and find gold.'
+```
+
+## **Step 134** 
+After a monster is defeated, the monster's stat box should no longer display.<br>
+On the first line of the `update` function, use `monsterStats.style.display` to change the `display` value to none.
+
+```js
+monsterStats.style.display = "none";
+```
+
+## **Step 135** 
+In the `lose` function, call the `update` function and pass in the sixth object of your `locations` array. Note that you haven't created this object just yet.
+
+```js
+update(locations[5]);
+```
+
+## **Step 136** 
+At the end of your code, create a `restart` function. Inside this function, set `xp` to `0`, `health` to `100`, `gold` to `50`, `currentWeapon` to `0`, and set `inventory` to an array with the string `stick`.<br>
+Also update the `innerText` properties of `goldText`, `healthText`, and `xpText` to their current values.<br>
+Finally, call the `goTown()` function.
+
+```js
+function restart() {
+  xp = 0;
+  health = 100;
+  gold = 50;
+  currentWeapon = 0;
+  inventory = ['stick'];
+  goldText.innerText = gold;
+  healthText.innerText = health;
+  xpText.innerText = xp;
+  goTown();
+}
+```
+
+## **Step 137** 
+In the `locations` array, add another object at the end. Set the `name` property to `"lose"`, set `"button text"` to an array with three `"REPLAY?"` strings, set `"button functions"` to an array with three `restart` variables, and set text to `"You die. &#x2620;"`.<br>
+In a later step, you will update the code for the `&#x2620;` emoticon text to properly display on the page.
+
+```js
+{
+  name: "lose",
+  "button text": ["REPLAY?", "REPLAY?", "REPLAY?"],
+  "button functions": [restart, restart, restart],
+  text: "You die. &#x2620;"
+}
+```
+
+## **Step 138** 
+Back to your `attack` function - inside the `else if` block, create another `if` and `else` statement. If the player is fighting the dragon (`fighting` would be `2`), call the `winGame` function. Move the `defeatMonster()` call to the `else` block.<br>
+For this step, you will need to use the strict equality (`===`) operator to check if `fighting` is equal to `2`.
+
+```js
+if (fighting === 2) {
+  winGame ();
+  } else {
+  defeatMonster();
+}
+```
+
+## **Step 139** 
+In order for the `&#x2620;` emoticon text to properly display on the page, you will need to use the <i>innerHTML</i> property.<br>
+The `innerHTML` property allows you to access or modify the content inside an HTML element using JavaScript.<br>
+Here is an example of updating the content for this paragraph element using the `innerHTML` property.<br>
+`<p id="demo">This is a paragraph.</p>`<br>
+`document.querySelector("#demo").innerHTML = "Hello, innerHTML!";`<br>
+In the `update` function, change `text.innerText` to `text.innerHTML`.
+
+```js
+text.innerHTML = location.text;
+```
+
+## **Step 140** 
+After the `lose` function, create a function called `winGame`. Inside the `winGame` function, call the `update` function and pass in `locations[6]`.
+
+```js
+function winGame() {
+  update(locations[6]);
+}
+```
+
+## **Step 141** 
+Add another object in the `locations` array. Everything should be the same as the `lose` object, except the `name` should be `"win"` and the text should be `"You defeat the dragon! YOU WIN THE GAME! &#x1F389;"`.
+
+```js
+{
+  name: "win",
+  "button text": ["REPLAY?", "REPLAY?", "REPLAY?"],
+  "button functions": [restart, restart, restart],
+  text: "You defeat the dragon! YOU WIN THE GAME! &#x1F389;"
+}
+```
+
+## **Step 142** 
+While your game is feature-complete at this stage, there are things you can do to make it more fun and engaging. To get started, you'll give `monsters` a dynamic attack value.<br>
+Inside your `attack` function, change your `health -= monsters[fighting].level;` line to `health -= getMonsterAttackValue(monsters[fighting].level);`. This sets `health` equal to `health` minus the return value of the `getMonsterAttackValue` function, and passes the `level` of the monster as an argument.
+
+```js
+health -= getMonsterAttackValue(monsters[fighting].level);
+```
+
+## **Step 143** 
+Below your `attack` function, create an empty function named `getMonsterAttackValue`. It should take `level` as a parameter.
+
+```js
+function getMonsterAttackValue (level) {}
+```
+
+## **Step 144** 
+The attack of the monster will be based on the monster's `level` and the player's `xp`. In the `getMonsterAttackValue` function, use `const` to create a variable called `hit`. Assign it the equation `(level * 5) - (Math.floor(Math.random() * xp));`.<br>
+This will set the monster's attack to five times their `level` minus a random number between `0` and the player's `xp`.
+
+```js
+const hit = (level * 5) - (Math.floor(Math.random() * xp));
+```
+
+## **Step 145** 
+Log the value of `hit` to the console to use in debugging. Remember that you can do this with `console.log()`.
+
+```js
+console.log(hit);
+```
+
+## **Step 146** 
+In the previous project, you learned how to work with the `return` keyword to return a value from a function like this:<br>
+`function add(num1, num2) {`<br>
+  `return num1 + num2;`<br>
+`}`<br>
+Use the `return` keyword to return the value of `hit` at the end of the function.
+
+```js
+return hit;
+```
+
+## **Step 147** 
+If you play the game in its current state you might notice a bug. If your `xp` is high enough, the `getMonsterAttackValue` function will return a negative number, which will actually add to your total health when fighting a monster! You can fix this issue by using a <i>ternary</i> operator to ensure negative values are not returned.<br>
+The `ternary operator` is a conditional operator and can be used as a one-line `if-else` statement. The syntax is: `condition ? expressionIfTrue : expressionIfFalse`.<br>
+Here is an example of returning a value using an `if-else` statement and a refactored example using a ternary operator:<br>
+`// if-else statement`
+`if (score > 0) {`<br>
+  `return score`<br>
+`} else {`<br>
+  `return default_score`<br>
+`}`<br>
+`// ternary operator`<br>
+`return score > 0 ? score : default_score`<br>
+In `getMonsterAttackValue`, change `return hit` to a ternary operator that returns `hit` if `hit` is greater than `0`, or returns `0` if it is not.
+
+```js
+return hit > 0 ? hit: 0;
+```
+
+## **Step 148** 
+In your `attack` function, below the `health` variable, create an `if` statement. Set the condition to call the `isMonsterHit` function.
+
+```js
+if (isMonsterHit()) {}
+```
+
+## **Step 149** 
+Move your `monsterHealth` assignment into your `if` block.
+
+```js
+if (isMonsterHit()) {
+    monsterHealth -= weapons[currentWeapon].power + Math.floor(Math.random() * xp) + 1;
+  }
+```
+
+## **Step 150** 
+Add an `else` statement to the first `if` statement inside your `attack()` function. In the `else` statement, use the `+=` operator to add the text `" You miss."` to the end of `text.innerText`.
+
+```js
+else {
+  text.innerText += " You miss.";
+}
+```
+
+## **Step 151** 
+Now create the `isMonsterHit` function. This will return a <i>boolean</i> value (true or false) to be used in your `if` statement. Return the result of the comparison `Math.random() > .2`.
+
+```js
+function isMonsterHit () {
+  return Math.random() > .2;
+}
+```
+
+## **Step 152** 
+The player should hit if either `Math.random() > .2` <b>or</b> if the player's health is less than `20`.<br>
+At the end of your `return` statement, use the <i>logical OR</i>operator `||` and check if `health` is less than `20`.<br>
+The logical OR operator will use the first value if it is truthy – that is, anything apart from `NaN`, `null`, `undefined`, `0`, `-0`, `0n`, `""`, and `false`. Otherwise, it will use the second value.<br>
+For example: `num < 10 || num > 20`.
+
+```js
+return Math.random() > .2 || health < 20;
+```
+
+## **Step 153** 
+On every attack, there should be a chance that the player's weapon breaks. At the end of the `attack` function, add an empty `if` statement with the condition `Math.random() <= .1`.
+
+```js
+if (Math.random() <= .1) {}
+```
+
+## **Step 154** 
+Use the `+=` operator to add `" Your <weapon> breaks."`, with a space in front of Your, to the end of `text.innerText`. Replace `<weapon>` with the last item in the `inventory` array using `inventory.pop()`, which will remove the last item in the array AND return it so it appears in your string.
+
+```js
+text.innerText += " Your " + inventory.pop() + " breaks.";
+```
+
+## **Step 155** 
+Remember that the increment operator `++` can be used to increase a variable's value by `1`. There is also a decrement operator `--` that can be used to decrease a variable's value by `1`. For example:<br>
+`let num = 10;`<br>
+`num--;`<br>
+`console.log(num); // Output: 9`<br>
+Decrement the value of `currentWeapon` in your `if` statement, after you update the text.
+
+```js
+currentWeapon --;
+```
+
+## **Step 156** 
+We don't want a player's only weapon to break. The logical AND operator checks if two statements are true.<br>
+Use the <i>logical AND</i> operator `&&` to add a second condition to your `if` statement. The player's weapon should only break if `inventory.length` does not equal (`!==`) one.<br>
+Here is an example of an `if` statement with two conditions:<br>
+`if (firstName === "Quincy" && lastName === "Larson") {`<br>
+`}`
+
+```js
+if (Math.random() <= .1 && inventory.length !== 1)
+```
+
+## **Step 157** 
+Now you can add a small easter egg (hidden feature) to your game.<br>
+Create a new function called `easterEgg` which calls the `update` function with `locations[7]` as the argument.
+
+```js
+function easterEgg() {
+  update(locations[7]);
+}
+```
+
+## **Step 158** 
+Create an empty `pick` function with a parameter named `guess`.
+
+```js
+function pick(guess) {}
+```
+
+## **Step 159** 
+Create two new functions named `pickTwo` and `pickEight`.<br>
+Inside each of those, call the `pick()` function and pass either `2` or `8` as the argument depending on the function name.
+
+```js
+function pickTwo() {
+  pick(2);
+}
+
+function pickEight() {
+  pick(8);
+}
+```
+
+## **Step 160** 
+Add another object to your `locations` array. Set `name` to `"easter egg"`, set `"button text"` to an array with the strings `"2"`, `"8"`, and `"Go to town square?"`, set `"button functions"` to an array with the variables `pickTwo`, `pickEight`, and `goTown`, and `text` to `"You find a secret game. Pick a number above. Ten numbers will be randomly chosen between 0 and 10. If the number you choose matches one of the random numbers, you win!"`.
+
+```js
+{ 
+  name: "easter egg", 
+  "button text": ["2", "8", "Go to town square?"], 
+  "button functions": [pickTwo, pickEight, goTown], 
+  text: "You find a secret game. Pick a number above. Ten numbers will be randomly chosen between 0 and 10. If the number you choose matches one of the random numbers, you win!" 
+}
+```
+
+## **Step 161** 
+Inside `pick`, use `const` to initialize a variable named `numbers` and set it to an empty array.
+
+```js
+const numbers = [];
+```
+
+## **Step 162** 
+After your `numbers` array, create a `while` loop that runs as long as `numbers.length` is less than `10`.<br>
+In the previous project, you learned how to work with `while` loops like this:<br>
+`while (condition) {`<br>
+  `// code to run<`<br>
+`}`<br>
+
+```js
+while (numbers.length < 10){}
+```
+
+## **Step 163** 
+Inside your `while` loop, push a random number between `0` and `10` to the end of the `numbers` array. You can create this random number with `Math.floor(Math.random() * 11)`.
+
+```js
+numbers.push(Math.floor(Math.random() * 11));
+```
+
+## **Step 164** 
+After the `while` loop, set `text.innerText` to equal `"You picked <someGuess>. Here are the random numbers:"`. Replace `<someGuess>` with the `guess` function parameter.
+
+```js
+text.innerText = "You picked " + guess + ". Here are the random numbers:"
+```
+
+## **Step 165** 
+At the end of the string, before the final quote, insert the new line escape character `\n`. This will cause the next part you add to `text.innerText` to appear on a new line.
+
+```js
+text.innerText = "You picked " + guess + ". Here are the random numbers:\n";
+```
+
+## **Step 166** 
+In the previous project, you learned how to work with `for` loops like this:<br>
+`for (let i = 0; i < 5; i++) {`<br>
+  `// code to run`<br>
+`}`<br>
+`for` loops are declared with three expressions separated by semicolons: `for (a; b; c)`, where `a` is the initialization expression, `b` is the condition, and `c` is the final expression.<br>
+In this step, create a `for` loop where `i` is initialized to `0`, the loop runs as long as `i` is less than `10`, and `i` is incremented by `1` after each iteration using the increment operator `++`.
+
+```js
+for (let i = 0; i < 10; i++){}
+```
+
+## **Step 167** 
+Now you can write the logic to run in the loop. Inside your `for` loop, use the `+=` operator to add to the end of `text.innerText`. Add the number at index `i` of the `numbers` array, using `numbers[i]`. Then add a new line, using the escape sequence you used earlier.
+
+```js
+text.innerText += numbers[i] + "\n";
+```
+
+## **Step 168** 
+The `.includes()` method determines if an array contains an element and will return either `true` or `false`.<br>
+Here is an example of the `.includes()` syntax:<br>
+`const numbersArray = [1, 2, 3, 4, 5]`<br>
+`const number = 3`<br>
+`if (numbersArray.includes(number)) {`<br>
+  `console.log("The number is in the array.")`<br>
+`}`<br>
+After your `for` loop, add an `if` statement to check if the `guess` is in the `numbers` array. You can use the .`includes()` method to check if the array contains the `guess`.
+
+```js
+if (numbers.includes(guess)) {}
+```
+
+## **Step 169** 
+Inside the `if` statement, add the string `"Right! You win 20 gold!"` to the end of `text.innerText`. Also, add `20` to the value of `gold` and update the `goldText.innerText`.
+
+```js
+text.innerText += "Right! You win 20 gold!";
+gold += 20;
+goldText.innerText = gold;
+```
+
+## **Step 170** 
+Now add an `else` statement. Inside, add `"Wrong! You lose 10 health!"` to the end of `text.innerText`. Subtract `10` from `health` and update `healthText.innerText`.
+
+```js
+else {
+  text.innerText += "Wrong! You lose 10 health!";
+  health -= 10;
+  healthText.innerText = health;
+}
+```
+
+## **Step 171** 
+Since you subtracted health from the player, you need to check if the player's `health` is less than or equal to `0`. If it is, call the `lose` function.
+
+```js
+if (health <= 0) {
+  lose();
+}
+```
+
+## **Step 172** 
+Looking at your `"kill monster"` object, `"button functions"` currently has three `goTown` variables. Replace the third one with `easterEgg` - this is how a player will access the hidden feature of the game. Do not change the `"button text"`.<br>
+With this, your RPG game is complete! You can now play around - can you defeat the dragon?
+
+```js
+"button functions": [goTown, goTown, easterEgg],
 ```
